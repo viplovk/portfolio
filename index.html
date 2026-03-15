@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | CSE & Digital Artist</title>
+    <style>
+        :root {
+            --bg: #0a0a0c;
+            --accent: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            --glass: rgba(255, 255, 255, 0.03);
+            --text: #f8fafc;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', system-ui, sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background Mesh */
+        .mesh {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #0a0a0c 100%);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Hero Section */
+        header {
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 0.5rem;
+            background: var(--accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Aesthetic Cards */
+        .card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 24px;
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease;
+            opacity: 0; /* For JS Animation */
+            transform: translateY(30px);
+        }
+
+        .card.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card:hover {
+            transform: scale(1.02);
+            border-color: #6366f1;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+        }
+
+        .skill-node {
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            padding: 10px;
+            text-align: center;
+            border-radius: 12px;
+            font-size: 0.9rem;
+        }
+
+        /* Buttons */
+        .btn {
+            background: var(--accent);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="mesh"></div>
+
+<div class="container">
+    <header>
+        <p style="text-transform: uppercase; letter-spacing: 3px; color: #818cf8;">B.Tech CSE @ IEC</p>
+        <h1>Creative Developer</h1>
+        <p style="font-size: 1.2rem; opacity: 0.8;">Code. Design. Repeat.</p>
+        <a href="#work" class="btn">View My Work</a>
+    </header>
+
+    <section id="work">
+        <div class="card">
+            <h2>About</h2>
+            <p>I blend the logic of Computer Science with the aesthetics of Digital Art. Focused on Python, JavaScript, and creating seamless user experiences.</p>
+        </div>
+
+        <div class="card">
+            <h2>Stack</h2>
+            <div class="skills-grid">
+                <div class="skill-node">Python</div>
+                <div class="skill-node">JavaScript</div>
+                <div class="skill-node">DSA</div>
+                <div class="skill-node">Git</div>
+                <div class="skill-node">SQL</div>
+                <div class="skill-node">UI Design</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Digital Art Gallery</h2>
+            <p>Coming soon: A collection of image edits and digital illustrations.</p>
+        </div>
+    </section>
+</div>
+
+<script>
+    // Scroll Animation Logic
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('show');
+            }
+        });
+    });
+
+    const hiddenElements = document.querySelectorAll('.card');
+    hiddenElements.forEach((el) => observer.observe(el));
+</script>
+
+</body>
+</html>
