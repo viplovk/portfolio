@@ -14,7 +14,7 @@
             --glass: rgba(255, 255, 255, 0.03);
             --text: #f8fafc;
             /* Animated Theme Variables */
-            --l: #6366f1; /* Matched to your accent */
+            --l: #6366f1; 
             --b: #0a0a0c;
             --c: rgba(255, 255, 255, 0.1);
             --w: 104px;
@@ -31,25 +31,30 @@
             overflow-x: hidden;
         }
 
-        /* --- THE NEW ANIMATED BACKGROUND LAYER --- */
+        /* --- THE FULL BACKGROUND ANIMATION --- */
         .animated-bg {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
             z-index: -2;
             background: var(--b);
+            /* Updated background to repeat across the entire width */
             background-image: 
                 linear-gradient(45deg, var(--l) 0% 14.2%, transparent 14.2% 28.5%, var(--l) 28.5% 42.8%, transparent 42.8% 57.1%, var(--l) 57.1% 71.4%, transparent 71.4% 85.7%, var(--l) 85.7% 100%),
                 linear-gradient(-45deg, var(--l) 0% 14.2%, transparent 14.2% 28.5%, var(--l) 28.5% 42.8%, transparent 42.8% 57.1%, var(--l) 57.1% 71.4%, transparent 71.4% 85.7%, var(--l) 85.7% 100%);
-            background-size: 50px 20px, 50px 20px, 50px 80px, 50px 80px, 50px 80px, 50px 80px, 50px 80px, 50px 80px;
-            background-position-x: 4px, 54px, calc(var(--w) * 1 + 4px), calc(var(--w) * 1 + 54px), calc(var(--w) * 2 + 4px), calc(var(--w) * 2 + 54px);
-            background-repeat: repeat-y;
-            animation: weee 15s linear infinite;
-            opacity: 0.4; /* Softened so text is readable */
+            background-size: 100px 40px; /* Adjusted for full screen flow */
+            animation: weee 20s linear infinite;
+            opacity: 0.3; /* Subtle enough to read text clearly */
         }
 
-        @keyframes weee { to { background-position-y: 800px, 800px, 1040px, 1040px; } }
+        @keyframes weee {
+            from { background-position: 0 0; }
+            to { background-position: 0 1000px; }
+        }
 
-        /* Original Design Styles */
+        /* Original Layout Styles */
         .container {
             max-width: 1000px;
             margin: 0 auto;
@@ -59,7 +64,7 @@
         }
 
         header {
-            height: 70vh;
+            height: 60vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -68,11 +73,12 @@
         }
 
         h1 {
-            font-size: clamp(2.5rem, 8vw, 4rem);
+            font-size: clamp(3rem, 10vw, 5rem);
             margin: 0;
             background: var(--accent);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            font-weight: 700;
         }
 
         .card {
@@ -89,31 +95,30 @@
 
         .card.show { opacity: 1; transform: translateY(0); }
 
+        /* Theme Toggle */
         .theme-switch-wrapper { position: fixed; top: 20px; right: 20px; z-index: 1000; display: flex; align-items: center; gap: 10px; }
         .toggle { width: 50px; height: 26px; background-color: #333; border-radius: 50px; cursor: pointer; display: flex; align-items: center; padding: 0 4px; position: relative; }
-        .toggle__circle { width: 20px; height: 20px; background-color: white; border-radius: 50%; transition: transform 300ms ease-in-out; }
+        .toggle__circle { width: 20px; height: 20px; background-color: white; border-radius: 50%; transition: transform 0.3s; }
         #check:checked + .toggle { background-color: #6366f1; }
         #check:checked + .toggle > .toggle__circle { transform: translateX(22px); }
 
         body.light-mode {
             --bg: #f8fafc;
             --text: #0f172a;
-            --l: #a855f7;
         }
         body.light-mode .card { background: rgba(255, 255, 255, 0.8); color: #1e293b; border: 1px solid rgba(0,0,0,0.1); }
-        body.light-mode .animated-bg { opacity: 0.1; }
+        body.light-mode .animated-bg { opacity: 0.1; --l: #a855f7; }
 
         .grid-split { display: grid; grid-template-columns: 1fr 320px; gap: 2rem; }
-        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 1rem; margin-top: 1rem; }
-        .skill-node { background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.2); padding: 12px; text-align: center; border-radius: 12px; font-size: 0.85rem; }
-        .art-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
-        .art-item { width: 100%; border-radius: 15px; transition: transform 0.4s; cursor: pointer; }
+        .art-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.5rem; }
+        .art-item { width: 100%; border-radius: 15px; transition: 0.4s; cursor: pointer; }
         .art-item:hover { transform: scale(1.05); }
 
-        /* Brutalist Contact Form */
-        .brutalist-container { position: relative; width: 100%; max-width: 500px; margin-bottom: 40px; font-family: monospace; }
-        .brutalist-input { width: 100%; padding: 15px; font-size: 18px; font-weight: bold; color: #000; background: #fff; border: 4px solid #000; outline: none; box-shadow: 5px 5px 0 #000; }
+        /* Brutalist Contact */
+        .brutalist-container { position: relative; width: 100%; margin-bottom: 40px; }
+        .brutalist-input { width: 100%; padding: 15px; font-weight: bold; border: 4px solid #000; outline: none; box-shadow: 5px 5px 0 #000; }
         .brutalist-label { position: absolute; left: -3px; top: -30px; font-size: 14px; font-weight: bold; color: #fff; background: #000; padding: 5px 10px; }
+
         @media (max-width: 768px) { .grid-split { grid-template-columns: 1fr; } }
     </style>
 </head>
@@ -123,7 +128,7 @@
 
 <div class="theme-switch-wrapper">
     <span style="font-size: 0.8rem; opacity: 0.7;"><i class="fas fa-sun"></i> / <i class="fas fa-moon"></i></span>
-    <input hidden="" id="check" name="check" type="checkbox">
+    <input hidden id="check" type="checkbox">
     <label class="toggle" for="check"><div class="toggle__circle"></div></label>
 </div>
 
@@ -138,67 +143,50 @@
         <div class="grid-split">
             <div class="card">
                 <h2><i class="fas fa-user-astronaut"></i> About Me</h2>
-                <p>I am a 2nd-semester B.Tech Computer Science student at <strong>IEC College of Engineering and Technology</strong>. I blend technical logic with digital creativity.</p>
-                <p>Based in <strong>East Delhi</strong>, focused on building strong foundations in software development.</p>
+                <p>I am a 2nd-semester B.Tech Computer Science student at <strong>IEC College of Engineering and Technology</strong>. I specialize in bridging the gap between logic and digital art.</p>
             </div>
 
             <div class="card" style="border-left: 4px solid #6366f1;">
                 <h3 style="margin-top: 0; color: #818cf8;">Personal Intel</h3>
                 <ul style="list-style: none; padding: 0; line-height: 2.5;">
-                    <li><i class="fas fa-calendar-alt" style="width: 25px;"></i> 18 Years Old</li>
-                    <li><i class="fas fa-ruler-vertical" style="width: 25px;"></i> 5’7” Height</li>
-                    <li><i class="fas fa-envelope" style="width: 25px;"></i> <a href="mailto:viplov7@icloud.com" style="color: #a855f7; text-decoration: none;">viplov7@icloud.com</a></li>
+                    <li><strong>Age:</strong> 18 Years</li>
+                    <li><strong>Location:</strong> East Delhi</li>
+                    <li><strong>Height:</strong> 5’7”</li>
                 </ul>
             </div>
         </div>
 
         <div class="card">
-            <h2><i class="fas fa-graduation-cap"></i> Academic Journey</h2>
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
-                <div>
-                    <h3 style="margin: 0; color: #818cf8;">B.Tech in CSE</h3>
-                    <p style="opacity: 0.8;">IEC College of Engineering and Technology</p>
-                </div>
-                <div style="background: rgba(99, 102, 241, 0.2); border: 1px solid #6366f1; padding: 10px 20px; border-radius: 12px;">
-                    <strong style="font-size: 1.8rem;">7.95 SGPA</strong>
-                </div>
-            </div>
+            <h2><i class="fas fa-graduation-cap"></i> Academic Record</h2>
+            <p>Maintaining a <strong>7.95 SGPA</strong> from the 1st semester. Class of 2029.</p>
         </div>
 
         <div class="card">
-            <h2><i class="fas fa-camera-retro"></i> Digital Artist</h2>
-            <div style="display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; margin-bottom: 2rem;">
-                <img src="images/viplov-photo.jpg" alt="Viplov" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid #6366f1;">
-                <p style="flex: 1;">Creating visuals that tell a story.</p>
-            </div>
+            <h2><i class="fas fa-images"></i> Trash Gallery</h2>
             <div class="art-grid">
                 <img src="images/artwork1.jpg" alt="Art 1" class="art-item">
                 <img src="images/artwork2.jpg" alt="Art 2" class="art-item">
             </div>
         </div>
 
-        <div class="card" style="background: transparent; border: none; backdrop-filter: none; opacity: 1; transform: none;">
+        <div class="card" style="background: transparent; border: none; opacity: 1; transform: none;">
             <h2 style="margin-bottom: 3.5rem;"><i class="fas fa-paper-plane"></i> Send a Dispatch</h2>
             <form action="https://formspree.io/f/mqenkqbg" method="POST" style="display: flex; flex-direction: column; gap: 1rem;">
                 <div class="brutalist-container">
-                    <input placeholder="YOUR NAME" class="brutalist-input" type="text" name="name" required />
+                    <input placeholder="NAME" class="brutalist-input" type="text" name="name" required />
                     <label class="brutalist-label">WHO ARE YOU?</label>
                 </div>
                 <div class="brutalist-container">
                     <textarea placeholder="MESSAGE..." class="brutalist-input" name="message" required style="height: 120px; resize: none;"></textarea>
-                    <label class="brutalist-label">THE MESSAGE</label>
+                    <label class="brutalist-label">MESSAGE</label>
                 </div>
                 <button type="submit" class="brutalist-input" style="width: fit-content; cursor: pointer; background: #6366f1; color: white;">SUBMIT</button>
             </form>
         </div>
     </section>
 
-    <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 3rem;">
-        <div style="display: flex; justify-content: center; gap: 3rem; font-size: 1.5rem;">
-            <a href="https://www.instagram.com/vis6u" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="https://x.com/vishuk30" target="_blank"><i class="fab fa-x-twitter"></i></a>
-        </div>
-        <p style="margin-top: 2rem; font-size: 0.8rem; opacity: 0.4;">© 2026 VIPLOV KASHYAP</p>
+    <footer style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding: 3rem 0;">
+        <p>© 2026 VIPLOV KASHYAP • CSE 2ND SEM</p>
     </footer>
 </div>
 
